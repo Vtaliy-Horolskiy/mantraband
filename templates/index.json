@@ -56,23 +56,10 @@
         "mobile_padding_top": 0,
         "mobile_padding_bottom": 0
       }
-    },
-    "best_sellers_eARNca": {
-      "type": "best-sellers",
-      "name": "Bestsellers",
-      "settings": {
-        "preheading": "1",
-        "heading": "2",
-        "padding_top": 0,
-        "padding_bottom": 0,
-        "mobile_padding_top": 0,
-        "mobile_padding_bottom": 0
-      }
     }
   },
   "order": [
     "main",
-    "best_sellers_gHUECw",
-    "best_sellers_eARNca"
+    "best_sellers_gHUECw"
   ]
 }
