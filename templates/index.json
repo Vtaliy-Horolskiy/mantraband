@@ -75,11 +75,20 @@
             "title": "aAaasas",
             "product": ""
           }
+        },
+        "collection_MtYw8R": {
+          "type": "collection",
+          "settings": {
+            "collection": "mantra-rings",
+            "title": "",
+            "product": ""
+          }
         }
       },
       "block_order": [
         "collection_jByKqm",
-        "collection_WFMr7q"
+        "collection_WFMr7q",
+        "collection_MtYw8R"
       ],
       "name": "Bestsellers",
       "settings": {
