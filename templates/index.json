@@ -59,37 +59,6 @@
     },
     "best_sellers_eARNca": {
       "type": "best-sellers",
-      "blocks": {
-        "collection_jByKqm": {
-          "type": "collection",
-          "settings": {
-            "collection": "charitybands®",
-            "title": "",
-            "product": ""
-          }
-        },
-        "collection_WFMr7q": {
-          "type": "collection",
-          "settings": {
-            "collection": "statement-collection",
-            "title": "aAaasas",
-            "product": ""
-          }
-        },
-        "collection_MtYw8R": {
-          "type": "collection",
-          "settings": {
-            "collection": "mantra-rings",
-            "title": "",
-            "product": ""
-          }
-        }
-      },
-      "block_order": [
-        "collection_jByKqm",
-        "collection_WFMr7q",
-        "collection_MtYw8R"
-      ],
       "name": "Bestsellers",
       "settings": {
         "preheading": "1",
