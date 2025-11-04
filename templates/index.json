@@ -56,10 +56,54 @@
         "mobile_padding_top": 0,
         "mobile_padding_bottom": 0
       }
+    },
+    "best_sellers_eARNca": {
+      "type": "best-sellers",
+      "blocks": {
+        "collection_jByKqm": {
+          "type": "collection",
+          "settings": {
+            "collection": "charitybands®",
+            "title": "",
+            "product": ""
+          }
+        },
+        "collection_WFMr7q": {
+          "type": "collection",
+          "settings": {
+            "collection": "statement-collection",
+            "title": "",
+            "product": ""
+          }
+        },
+        "collection_xGnAXc": {
+          "type": "collection",
+          "settings": {
+            "collection": "",
+            "title": "",
+            "product": ""
+          }
+        }
+      },
+      "block_order": [
+        "collection_jByKqm",
+        "collection_WFMr7q",
+        "collection_xGnAXc"
+      ],
+      "name": "Bestsellers",
+      "settings": {
+        "preheading": "1",
+        "heading": "2",
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "mobile_padding_top": 0,
+        "mobile_padding_bottom": 0
+      }
     }
   },
   "order": [
     "main",
-    "best_sellers_gHUECw"
+    "best_sellers_gHUECw",
+    "best_sellers_eARNca"
   ]
 }
