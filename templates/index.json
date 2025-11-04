@@ -13,9 +13,53 @@
       "type": "hello-world",
       "disabled": true,
       "settings": {}
+    },
+    "best_sellers_gHUECw": {
+      "type": "best-sellers",
+      "blocks": {
+        "collection_paXGeP": {
+          "type": "collection",
+          "settings": {
+            "collection": "mantra-rings",
+            "title": "",
+            "product": ""
+          }
+        },
+        "collection_YR6BK3": {
+          "type": "collection",
+          "settings": {
+            "collection": "charitybands®",
+            "title": "",
+            "product": ""
+          }
+        },
+        "collection_eThbyU": {
+          "type": "collection",
+          "settings": {
+            "collection": "statement-collection",
+            "title": "",
+            "product": ""
+          }
+        }
+      },
+      "block_order": [
+        "collection_paXGeP",
+        "collection_YR6BK3",
+        "collection_eThbyU"
+      ],
+      "name": "Bestsellers",
+      "settings": {
+        "preheading": "Best sellers",
+        "heading": "Trending Products",
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "mobile_padding_top": 0,
+        "mobile_padding_bottom": 0
+      }
     }
   },
   "order": [
-    "main"
+    "main",
+    "best_sellers_gHUECw"
   ]
 }

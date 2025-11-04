@@ -69,6 +69,12 @@
         "label": "t:labels.foreground"
       },
       {
+        "type": "color",
+        "id": "critical_color",
+        "default": "#E41616",
+        "label": "Critical color"
+      },
+      {
         "type": "range",
         "id": "input_corner_radius",
         "min": 0,
@@ -77,6 +83,16 @@
         "unit": "px",
         "label": "t:labels.input_corner_radius",
         "default": 4
+      },
+      {
+        "type": "header",
+        "content": "Border color"
+      },
+      {
+        "type": "color",
+        "id": "primary_color",
+        "default": "#292929",
+        "label": "Primary color"
       }
     ]
   }

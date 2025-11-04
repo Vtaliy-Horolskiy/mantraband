@@ -1,0 +1,63 @@
+{% comment %}
+    USAGE:
+        {% render 'product-image', image: , class_name: , sizes: "100vw" %}
+    or
+        {% render 'product-image', image: , class_name: , sizes: "(min-width: 750px) 50vw, 100vw" %}
+{% endcomment %}
+
+{% liquid
+    assign fallback_width = 800
+
+    if sizes == blank
+        assign sizes = "100vw"
+    endif
+
+    unless image != blank
+        assign empty_svg_class = "svg-abs-contain"
+    endunless
+%}
+
+<picture class="{{ empty_svg_class }}">
+    {% if image != blank %}
+        <source
+            type="image/webp"
+            media="(max-width: 768px)"
+            srcset="
+                {{ image | image_url: width: 400, format: 'webp' }} 1x,
+                {{ image | image_url: width: 800, format: 'webp' }} 2x"
+            sizes="{{ sizes }}">
+
+        <source
+            type="image/webp"
+            media="(min-width: 769px)"
+            srcset="
+                {{ image | image_url: width: 800, format: 'webp' }} 1x,
+                {{ image | image_url: width: 1600, format: 'webp' }} 2x"
+            sizes="{{ sizes }}">
+
+        <source
+            media="(max-width: 768px)"
+            srcset="
+            {{ image | image_url: width: 400 }} 1x,
+            {{ image | image_url: width: 800 }} 2x"
+            sizes="{{ sizes }}">
+
+        <source
+            media="(min-width: 769px)"
+            srcset="
+                {{ image | image_url: width: 800 }} 1x,
+                {{ image | image_url: width: 1600 }} 2x"
+            sizes="{{ sizes }}">
+
+        <img
+            src="{{ image | image_url: width: fallback_width }}"
+            alt="{{ image.alt | escape }}"
+            width="{{ fallback_width }}"
+            height="{{ fallback_width | divided_by: image.aspect_ratio }}"
+            loading="lazy"
+            class="{{ class_name }}">
+
+    {% else %}
+        {{ 'image' | placeholder_svg_tag }}
+    {% endif %}
+</picture>

@@ -1,0 +1,72 @@
+{% comment %}
+    {% render 'product-card', product: , index_for_empty_card:  %}
+{% endcomment %}
+
+{% liquid
+    assign product_tags = product.tags | slice: 0, 3
+    assign product_empty_title = 'product-' | append: index_for_empty_card
+%}
+
+{% if product != blank %}
+    <div class="product-card">
+        <div class="product-card__image">
+            <a href="{{ product.url }}" class="product-card__image-link">
+                {% render 'product-image', class_name: 'image-abs-cover', image: product.featured_media %}
+            </a>
+        </div>
+
+        <div class="product-card__buttons-wrap">
+            <button type="button" class="product-card__button">
+                {%- render 'icon' with 'heart' -%}
+            </button>
+
+            <quick-add data-variant-id="{{ product.selected_or_first_available_variant.id }}">
+                <button type="button"
+                        class="product-card__button"
+                        aria-label="Quick add to cart"
+                        {% unless product.available %}disabled{% endunless %}>
+
+                    {%- render 'icon' with 'eye' -%}
+                </button>
+            </quick-add>
+        </div>
+
+        <div class="product-card__tags product-tags">
+            {% if product_tags.size > 0 %}
+                {% for tag in product_tags %}
+                    {% if forloop.index <= 3 %}
+                        {% liquid
+                            assign tag_downcase = tag | downcase
+
+                            if tag_downcase contains "sale"
+                                assign current_class = "product-tags__item h6 product-tags__item--sale"
+                            else
+                                assign current_class = "product-tags__item h6"
+                            endif
+                        %}
+
+                        <span class="{{ current_class }}">{{ tag_downcase | capitalize }}</span>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        </div>
+
+        <div class="product-card__bottom-content">
+            <a href="{{ product.url }}" class="product-card__title">{{ product.title }}</a>
+
+            <div class="product-card__price-wrap {% if product.compare_at_price and product.compare_at_price > 0 and product.compare_at_price > product.price %}product-card__price-wrap--sale{% endif %}">
+                <span class="product-card__price">{{ product.price | money }}</span>
+
+                {% if product.compare_at_price and product.compare_at_price > 0 %}
+                    <span class="product-card__compare-price">{{ product.compare_at_price | money }}</span>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% else %}
+    <div class="product-card-empty">
+        <div class="product-card-empty__img svg-abs-contain">
+            {{ product_empty_title | placeholder_svg_tag }}
+        </div>
+    </div>
+{% endif %}

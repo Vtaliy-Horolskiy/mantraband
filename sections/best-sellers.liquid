@@ -1,0 +1,215 @@
+{{ 'bestsellers.css' | asset_url | stylesheet_tag }}
+{{ 'product-card.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'tabs-collection.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'quick-add.js' | asset_url }}" defer="defer"></script>
+
+{% liquid
+  assign padding_top_desktop = section.settings.padding_top | append: 'px'
+  assign padding_bottom_desktop = section.settings.padding_bottom | append: 'px'
+  assign padding_top_mobile = section.settings.mobile_padding_top | append: 'px'
+  assign padding_bottom_mobile = section.settings.mobile_padding_bottom | append: 'px'
+
+  assign preheading = section.settings.preheading
+  assign heading = section.settings.heading
+%}
+
+<div class="bestsellers"
+     style="
+             --padding-top-desktop: {{ padding_top_desktop }};
+             --padding-bottom-desktop: {{ padding_bottom_desktop }};
+             --padding-top-mobile: {{ padding_top_mobile }};
+             --padding-bottom-mobile: {{ padding_bottom_mobile }};">
+
+  <tabs-collection class="bestsellers__columns">
+    <div class="bestsellers__column-left">
+      {% if preheading != blank or heading != blank %}
+        <div class="bestsellers__header">
+          {% if preheading != blank %}
+            <h2 class="h5">{{ preheading }}</h2>
+          {% endif %}
+
+          {% if heading != blank %}
+            <h3 class="h2">{{ heading }}</h3>
+          {% endif %}
+        </div>
+      {% endif %}
+
+      <div class="bestsellers__collection-titles collection-titles">
+        <div class="collection-titles__items">
+          {% for block in section.blocks %}
+            {% liquid
+              assign collection = block.settings.collection
+              assign title = block.settings.title
+              assign main_title = title | default: collection.title
+            %}
+
+            <div class="collection-titles__item">
+              <a href="{{ collection.url | strip }}"
+                 data-content-id="{{ section.id }}--{{ forloop.index }}"
+                 aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
+                 class="h3 collection-titles__link">
+
+                <span class="collection-titles__label">
+                  {% if collection != blank %}
+                    {{ main_title }}
+                  {% else %}
+                    {% if title != blank %}
+                      {{ title }}
+                    {% else %}
+                      {{ 'collection_default.title' | t }}
+                    {% endif %}
+                  {% endif %}
+                </span>
+
+                <span class="collection-titles__icon">
+                  {%- render 'icon' with 'arrow-right' -%}
+                </span>
+              </a>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+    <div class="bestsellers__column-right">
+      <div class="bestsellers__collection-content collection-content">
+        <div class="collection-content__items">
+          {% for block in section.blocks %}
+            {% liquid
+              assign collection = block.settings.collection
+              assign product = block.settings.product
+            %}
+
+            <div class="collection-content__item"
+              id="{{ section.id }}--{{ forloop.index }}"
+              aria-selected="{% if forloop.first %}true{% else %}false{% endif %}">
+
+              {% if product != blank %}
+                {% render 'product-card', product: product, index_for_empty_card: forloop.index %}
+
+              {% elsif collection != blank %}
+                {% liquid
+                  assign collection_handle = collection.title | split: " " | join: "-" | downcase
+                  assign product_first = collections[collection_handle].products | first
+                %}
+
+                {% render 'product-card', product: product_first, index_for_empty_card: forloop.index %}
+
+              {% else %}
+                {% render 'product-card', index_for_empty_card: forloop.index %}
+              {% endif %}
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </tabs-collection>
+</div>
+
+{% schema %}
+{
+  "name": "Bestsellers",
+  "tag": "section",
+  "max_blocks": 3,
+  "settings": [
+    {
+      "type": "text",
+      "id": "preheading",
+      "label": "Preheading",
+      "default": "Preheading"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Heading"
+    },
+    {
+      "type": "header",
+      "content": "Desktop padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Mobile padding"
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 0
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Collection",
+      "type": "collection",
+      "settings":[
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Collection title"
+        },
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Bestsellers",
+      "blocks": [
+        {
+          "type": "collection"
+        },
+        {
+          "type": "collection"
+        },
+        {
+          "type": "collection"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
