@@ -32,7 +32,7 @@
 
         <div class="product-card__tags product-tags">
             {% if product.tags.size > 0 %}
-                {% for tag in product_tags %}
+                {% for tag in product_tags limit: 3 %}
                     {% liquid
                             assign tag_downcase = tag | downcase
 
