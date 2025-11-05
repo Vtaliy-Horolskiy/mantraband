@@ -31,10 +31,9 @@
         </div>
 
         <div class="product-card__tags product-tags">
-            {% if product_tags.size > 0 %}
+            {% if product.tags.size > 0 %}
                 {% for tag in product_tags %}
-                    {% if forloop.index <= 3 %}
-                        {% liquid
+                    {% liquid
                             assign tag_downcase = tag | downcase
 
                             if tag_downcase contains "sale"
@@ -45,7 +44,6 @@
                         %}
 
                         <span class="{{ current_class }}">{{ tag_downcase | capitalize }}</span>
-                    {% endif %}
                 {% endfor %}
             {% endif %}
         </div>
