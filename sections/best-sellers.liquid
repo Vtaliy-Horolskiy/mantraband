@@ -90,8 +90,10 @@
                 {% liquid
                   assign collection_handle = collection.title | split: " " | join: "-" | downcase
                   assign product_first = collections[collection_handle].products | first
-                %}
 
+                  assign product_first_fix = collection.products | first
+                %}
+{{ product_first_fix }}
                 {% render 'product-card', product: product_first, index_for_empty_card: forloop.index %}
 
               {% else %}
